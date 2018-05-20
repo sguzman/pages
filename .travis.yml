@@ -16,6 +16,8 @@ before_install:
 install:
   - git config --global user.name "Salvador Guzman"
   - git config --global user.email "guzmansalv@gmail.com"
+  - echo $GITHUB_AUTH > ~/.git-credentials
+  - git config credential.helper store
   - git clone 'https://github.com/sguzman/page-silo'
   - cd page-silo
   - mkdir -p txt/
@@ -26,6 +28,4 @@ script:
 after_success:
   - git add *.html.brotli
   - git commit -m 'Added brotli pages'
-  - echo $GITHUB_AUTH > ~/.git-crendentials
-  - git config credential.helper store
   - git push
