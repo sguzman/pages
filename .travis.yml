@@ -21,7 +21,8 @@ install:
   - mkdir -p txt/
   - cd txt/
 script:
-  - seq $LIMIT | parallel -j8 --joblog stats.log curl -sq http://23.95.221.108/'{}'/ '|' brotli '>' '{}'.html.brotli
+  - curl -sq http://23.95.221.108/ | brotli > 1.html.brotli
+  - seq 2 $LIMIT | parallel -j8 --joblog stats.log curl -sq http://23.95.221.108/'{}'/ '|' brotli '>' '{}'.html.brotli
   - cat stats.log
 after_success:
   - git add *.html.brotli
