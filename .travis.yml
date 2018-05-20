@@ -17,7 +17,6 @@ install:
   - git config --global user.name "Salvador Guzman"
   - git config --global user.email "guzmansalv@gmail.com"
   - echo $GITHUB_AUTH > ~/.git-credentials
-  - cat ~/.git-credentials
   - git config credential.helper store
   - git clone 'https://github.com/sguzman/page-silo'
   - cd page-silo
