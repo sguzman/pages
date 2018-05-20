@@ -1,0 +1,30 @@
+language: generic
+
+sudo: required
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y curl parallel cmake wget
+  - wget 'https://github.com/google/brotli/archive/v1.0.4.tar.gz'
+  - tar zxvf v1.0.4.tar.gz
+  - cd brotli-1.0.4/
+  - cmake .
+  - make
+  - cp ./brotli /bin/brotli
+  - cd ..
+install:
+  - git config --global user.name "Salvador Guzman"
+  - git config --global user.email "guzmansalv@gmail.com"
+  - git clone 'https://github.com/sguzman/page-silo'
+  - cd page-silo
+  - mkdir -p txt/
+  - cd txt/
+script:
+  - seq $LIMIT | parallel -j8 --joblog stats.log curl -sq http://23.95.221.108/'{}' '|' brotli '>' '{}'.html.brotli
+  - cat stats.log
+after_success:
+  - git add *.html.brotli
+  - git commit -m 'Added brotli pages'
+  - echo $GITHUB_AUTH > ~/.git-crendentials
+  - git config credential.helper store
+  - git push

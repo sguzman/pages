@@ -1,0 +1,1 @@
+![Travis](https://travis-ci.org/sguzman/pages.svg?branch=master)
