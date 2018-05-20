@@ -11,7 +11,7 @@ before_install:
   - cmake .
   - make
   - sudo cp ./brotli /bin/brotli
-  - chmod 777 /bin/brotli
+  - sudo chmod 777 /bin/brotli
   - cd ..
 install:
   - git config --global user.name "Salvador Guzman"
