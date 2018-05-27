@@ -22,8 +22,7 @@ install:
   - cd txt/
 script:
   - curl -sq http://23.95.221.108/ | brotli > 1.html.brotli
-  - seq 2 $LIMIT | parallel -j8 --joblog stats.log curl -sq http://23.95.221.108/page/'{}'/ '|' brotli '>' '{}'.html.brotli
-  - cat stats.log
+  - seq 2 $LIMIT | parallel -j8 --joblog /dev/stdout curl -sq http://23.95.221.108/page/'{}'/ '|' brotli '>' '{}'.html.brotli
 after_success:
   - git add *.html.brotli
   - git commit -m 'Added brotli pages'
